@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
@@ -28,7 +29,7 @@ class MyHomePage extends StatefulWidget {
   final String title;
   final List<String> gameNames = [
     "tic-tac-toe",
-    "2",
+    "Reaction time",
     "3"
   ]; // Only 3 buttons now
 
@@ -40,7 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black26,
       body: Center(
+        
         // Centering the buttons
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center, // Align in center
@@ -53,22 +56,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     // MaterialPageRoute(builder: (context) => TicTacToe()),
-                    // MaterialPageRoute(builder: (context) => Ss1()),  //navigation to selectionPage1
-                    MaterialPageRoute(builder: (context) => ReactionSpeed()),
+                    MaterialPageRoute(builder: (context) => Ss1()),  //navigation to selectionPage1
+                    // MaterialPageRoute(builder: (context) => ReactionSpeed()),
                   );
                   print("Button $name pressed");
                 },
+                
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey, // Button color
+                  backgroundColor: Color.fromARGB(255, 48, 48, 48), // Button color
+                  fixedSize: Size(150,150),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8), // Rounded edges
+                    borderRadius: BorderRadius.circular(12), // Rounded edges
                   ),
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 50),
                 ),
                 child: Text(
                   name,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),

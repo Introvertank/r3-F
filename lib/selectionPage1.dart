@@ -20,6 +20,7 @@ class _Ss1State extends State<Ss1> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("Grid", style: TextStyle(fontWeight: FontWeight.bold)),
               ElevatedButton(
@@ -41,13 +42,14 @@ class _Ss1State extends State<Ss1> {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("Time", style: TextStyle(fontWeight: FontWeight.bold)),
               ElevatedButton(
                   onPressed: () {
                     setState(() {
                       int index = time.indexOf(tm);
-
+      
                       if (index == time.length - 1) {
                         tm = time[0];
                       } else {
@@ -62,6 +64,7 @@ class _Ss1State extends State<Ss1> {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
                   onPressed: () {
