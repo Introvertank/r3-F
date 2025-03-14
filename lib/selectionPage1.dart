@@ -11,7 +11,7 @@ class Ss1 extends StatefulWidget {
 class _Ss1State extends State<Ss1> {
   int gridSize = 3;
   int tm = 3;
-  List<int> time = [3, 5, 10];
+  List<int> time = [3, 5, 10, -1];
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class _Ss1State extends State<Ss1> {
                   onPressed: () {
                     setState(() {
                       int index = time.indexOf(tm);
-      
+
                       if (index == time.length - 1) {
                         tm = time[0];
                       } else {
@@ -58,7 +58,7 @@ class _Ss1State extends State<Ss1> {
                     });
                   },
                   child: Text(
-                    "$tm",
+                    tm == -1 ? "∞" : "$tm",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )),
             ],

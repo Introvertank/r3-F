@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'ticTacToe.dart';
 import 'selectionPage1.dart';
 import 'Reaction.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -43,7 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.black26,
       body: Center(
-        
         // Centering the buttons
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center, // Align in center
@@ -53,18 +51,30 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    // MaterialPageRoute(builder: (context) => TicTacToe()),
-                    MaterialPageRoute(builder: (context) => Ss1()),  //navigation to selectionPage1
-                    // MaterialPageRoute(builder: (context) => ReactionSpeed()),
-                  );
+                  if (name == "tic-tac-toe") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Ss1()), //navigation to selectionPage1
+                      // MaterialPageRoute(builder: (context) => ReactionSpeed()),
+                    );
+                  } else if (name == "Reaction time") {
+                    Navigator.push(
+                      context,
+                      // MaterialPageRoute(builder: (context) => Ss1()),  //navigation to selectionPage1
+                      MaterialPageRoute(builder: (context) => ReactionSpeed()),
+                    );
+                  } else {
+                    print("$name button pressed, but no action assigned yet");
+                  }
+
                   print("Button $name pressed");
                 },
-                
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 48, 48, 48), // Button color
-                  fixedSize: Size(150,150),
+                  backgroundColor:
+                      Color.fromARGB(255, 48, 48, 48), // Button color
+                  fixedSize: Size(150, 150),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12), // Rounded edges
                   ),

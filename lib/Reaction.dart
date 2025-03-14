@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'main.dart';
 
 class ReactionSpeed extends StatefulWidget {
   const ReactionSpeed({super.key});
@@ -71,7 +72,7 @@ class _ReactionSpeedState extends State<ReactionSpeed> {
   @override
   void dispose() {
     _timer?.cancel(); //cancel timer when widget is removed
-    super.dispose;
+    super.dispose();
   }
 
   @override
@@ -92,6 +93,18 @@ class _ReactionSpeedState extends State<ReactionSpeed> {
               ),
             ),
           ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          MyApp()), // Replace MainScreen with your actual main screen widget
+                  (route) =>
+                      false, // This removes all previous screens from the stack
+                );
+              },
+              child: Text("back"))
         ]),
       ),
     );

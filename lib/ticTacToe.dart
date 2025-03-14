@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tomdo_list/main.dart';
+import 'dart:async';
 
 class TicTacToe extends StatefulWidget {
   final int gridSize;
@@ -16,12 +17,18 @@ class _TicTacToeState extends State<TicTacToe> {
   late List<String> board;
   bool isXTurn = true;
   String winner = "";
+  int remainingTime = 0;
+  Timer? _timer;
 
   @override
   void initState() {
     //method used to initialize state of an widget before   build method is called
     super.initState();
     board = List.filled(widget.gridSize * widget.gridSize, "");
+    if (widget.moveTime != -1) {
+      remainingTime = widget.moveTime;
+      _startTimer();
+    }
   }
 
   void _handleTap(int index) {
@@ -30,20 +37,47 @@ class _TicTacToeState extends State<TicTacToe> {
         board[index] = isXTurn ? "X" : "O";
         isXTurn = !isXTurn;
         _checkwinner();
+        _resetTimer();
       });
 
-      _startTimer();
+      if (widget.moveTime != 1) {
+        _startTimer();
+      }
     }
   }
 
   void _startTimer() {
-    Future.delayed(Duration(seconds: widget.moveTime), () {
-      if (mounted && winner == "") {
+    if (widget.moveTime == -1) return;
+
+    _timer?.cancel();
+    remainingTime = widget.moveTime;
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (remainingTime > 0) {
         setState(() {
-          isXTurn = !isXTurn; //switch turn if no move made in chosen time
+          remainingTime--;
         });
+      } else {
+        timer.cancel();
+        if (mounted && winner == "") {
+          setState(() {
+            isXTurn = !isXTurn; //switch turn if no move made in chosen time
+            _resetTimer();
+          });
+        }
       }
     });
+  }
+
+  void _resetTimer() {
+    if (widget.moveTime != -1) {
+      _startTimer();
+    }
+  }
+
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   void _checkwinner() {
@@ -146,6 +180,14 @@ class _TicTacToeState extends State<TicTacToe> {
             style: TextStyle(
                 fontSize: 25, fontWeight: FontWeight.bold, color: Colors.grey),
           ),
+          if (widget.moveTime != -1) //show timer only when non infinite
+            Text(
+              "$remainingTime s",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 68, 68, 68)),
+            ),
           Container(
             child: SizedBox(
               height: 150,
